@@ -1,0 +1,51 @@
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
+
+## Lewis Freeman Billing Better Coding Challenge
+
+Uses Laradock for local development, I assume you have Docker installed on your systems.
+
+### Directions to bring the project up
+- On your command line navigate to the `laradock` folder of this project
+- Run `docker-compose up -d nginx mysql` this may take a few minutes the first time run
+- Run `docker-compose exec workspace bash` to enter the `workspace container`
+- Within the workspace container run `su laradock` to change to the laradock user
+- Run `composer install`
+- Run `cp  .env.example .env`
+- Run `php artisan key:generate`
+- Run `php artisan migrate:fresh` or `php artisan migrate:fresh --seed` if you want it seed with data
+
+After all that is done, Run `php artisan queue:work` to start the queue worker
+
+
+To verify the endpoints work correctly, you can either use Postman or Curl.
+If using postman, I personally use `project.localhost` as the url which will be auto translated to `127.0.0.1` by chromium 
+
+#### Curl Examples
+To see properties
+```
+curl http://127.0.0.1/property
+```
+
+To create a property
+```
+curl -X POST http://127.0.0.1/property -H "Content-Type: application/json" -d '{"address":{"line_1":"10","line_2":"Test Street","postcode":"E11AA"}}'
+```
+To check the status of the job
+```
+curl http://127.0.0.1/batch/{batch_id}
+``` 
+(Batch ID return from create route)
+
+
+To easily submit a batch of 100 properties please run the below command.
+```
+
+curl -X POST http://127.0.0.1/property -H "Content-Type: application/json" -d '{"address":[{"line_1":"101 Craig Garden","line_2":null,"postcode":"CB9 9EE"},{"line_1":"152 Lee Loop","line_2":null,"postcode":"SK6 7QN"},{"line_1":"130 Stephanie Dale","line_2":"Jessicaton","postcode":"M45 8AF"},{"line_1":"128 Leah Radial","line_2":null,"postcode":"SY7 8AQ"},{"line_1":"50 Clark Shores","line_2":"Hunttown","postcode":"M20 1BT"},{"line_1":"21 Holmes Rest","line_2":null,"postcode":"DH3 2NB"},{"line_1":"180 Baker Key","line_2":null,"postcode":"WV99 1TL"},{"line_1":"195 Olivia Vista","line_2":"Port Theomouth","postcode":"KT24 6NU"},{"line_1":"121 Hill Forest","line_2":null,"postcode":"DE55 5SF"},{"line_1":"135 Tyler Ways","line_2":"West Jackson","postcode":"BD22 9DN"},{"line_1":"134 Miller Spurs","line_2":"Alexandraborough","postcode":"HP13 7TG"},{"line_1":"101 Lewis Bridge","line_2":"Jacksonport","postcode":"TR19 6DX"},{"line_1":"169 Brown Summit","line_2":"Paulinefort","postcode":"KA7 1TH"},{"line_1":"44 Gordon Expressway","line_2":"Matthewsland","postcode":"EH26 0LE"},{"line_1":"161 Johnson Fords","line_2":null,"postcode":"SW8 4TE"},{"line_1":"123 Candice Terrace","line_2":null,"postcode":"AB31 5ZD"},{"line_1":"77 Lizzie Rest","line_2":null,"postcode":"EX12 2WH"},{"line_1":"54 Leah Overpass","line_2":"North Aliceside","postcode":"PL1 4EH"},{"line_1":"86 Knight Trafficway","line_2":"West Selina","postcode":"MK43 7LX"},{"line_1":"86 James Green","line_2":"Lloydview","postcode":"TA4 2EY"},{"line_1":"23 Bell Walk","line_2":null,"postcode":"BT51 3NQ"},{"line_1":"85 Keeley Pines","line_2":"South Candicefurt","postcode":"S70 5RT"},{"line_1":"195 Lewis Row","line_2":"Baileytown","postcode":"DT7 3SY"},{"line_1":"133 Carter Burgs","line_2":"Port Sebastian","postcode":"LL55 4TE"},{"line_1":"48 David Ramp","line_2":null,"postcode":"TN6 2QU"},{"line_1":"10 Roxanne Pines","line_2":null,"postcode":"LN5 9WR"},{"line_1":"55 Wright Meadow","line_2":null,"postcode":"EX32 2BA"},{"line_1":"85 Katie Way","line_2":"North Joe","postcode":"NG19 7QJ"},{"line_1":"180 Grant Crescent","line_2":null,"postcode":"KT17 1DJ"},{"line_1":"53 King Village","line_2":"Harveyside","postcode":"ST14 5JJ"},{"line_1":"80 Matthews Knoll","line_2":"South Fred","postcode":"HP1 9HT"},{"line_1":"29 Mitchell Motorway","line_2":"North Wayneland","postcode":"GL14 2NW"},{"line_1":"34 Quentin Glen","line_2":null,"postcode":"KY10 3RL"},{"line_1":"106 Scott Throughway","line_2":"South Mia","postcode":"LS28 9NF"},{"line_1":"37 Oliver Forks","line_2":null,"postcode":"TR16 6EU"},{"line_1":"57 William Neck","line_2":null,"postcode":"SA5 4EA"},{"line_1":"145 Richardson Stream","line_2":null,"postcode":"SY7 8AQ"},{"line_1":"59 Campbell Port","line_2":null,"postcode":"NG34 9HJ"},{"line_1":"1 Stevens Squares","line_2":"Hallland","postcode":"SA5 4EA"},{"line_1":"191 Kirsten Lodge","line_2":"Robland","postcode":"CH64 3TH"},{"line_1":"170 Rob Neck","line_2":"Port Wendymouth","postcode":"GU16 6EL"},{"line_1":"108 Ward Junctions","line_2":"New Natasha","postcode":"CR2 8EN"},{"line_1":"164 Walsh Inlet","line_2":null,"postcode":"SA18 1HW"},{"line_1":"118 Ryan Parkways","line_2":null,"postcode":"HD9 6PH"},{"line_1":"192 Archie Branch","line_2":"Foxton","postcode":"CO12 3SQ"},{"line_1":"42 Watson Fords","line_2":null,"postcode":"M44 6ZR"},{"line_1":"48 Wilson Plaza","line_2":null,"postcode":"HR9 7XU"},{"line_1":"180 William Grove","line_2":"South Lizzie","postcode":"YO31 8WU"},{"line_1":"122 Amelia Station","line_2":"Lake Michael","postcode":"TN14 5GD"},{"line_1":"64 Bell Knolls","line_2":null,"postcode":"BT25 2HD"},{"line_1":"109 Molly Road","line_2":"Lake Wendy","postcode":"B10 9JS"},{"line_1":"131 Walker Forks","line_2":"West Christopher","postcode":"BD23 1UY"},{"line_1":"90 John Causeway","line_2":"West Theresastad","postcode":"SP1 1NE"},{"line_1":"11 Matthew Harbours","line_2":null,"postcode":"W6 7PR"},{"line_1":"179 Isabella Valleys","line_2":"Lake Bethany","postcode":"HA3 7SF"},{"line_1":"42 Ashley Court","line_2":null,"postcode":"BH12 2EN"},{"line_1":"90 Baker Islands","line_2":null,"postcode":"AL5 1SZ"},{"line_1":"74 Julia Lodge","line_2":"New Mohammedton","postcode":"CT14 7EW"},{"line_1":"184 Bell Squares","line_2":"West Rowenafurt","postcode":"OX3 7PJ"},{"line_1":"53 Kieran Shoal","line_2":"Campbellbury","postcode":"LS17 8LP"},{"line_1":"178 Freddie Views","line_2":null,"postcode":"NG9 3FL"},{"line_1":"182 Julie Street","line_2":null,"postcode":"SP3 6WD"},{"line_1":"139 Walker Way","line_2":null,"postcode":"SE1 7DB"},{"line_1":"160 Patricia Park","line_2":"North Jessicamouth","postcode":"NG17 4JY"},{"line_1":"115 Nicole Parkway","line_2":null,"postcode":"SE11 5SD"},{"line_1":"13 Samantha Union","line_2":null,"postcode":"CR5 3DN"},{"line_1":"64 Russell Alley","line_2":null,"postcode":"KT24 6NU"},{"line_1":"172 Marshall Light","line_2":null,"postcode":"DH3 2NB"},{"line_1":"61 Stewart Garden","line_2":"Matildaton","postcode":"NP44 4PE"},{"line_1":"61 Benjamin Gardens","line_2":null,"postcode":"ME15 0JU"},{"line_1":"40 James Ports","line_2":"Callumberg","postcode":"YO7 1SP"},{"line_1":"34 Stephanie Square","line_2":null,"postcode":"SW20 8JY"},{"line_1":"194 Charlie Gateway","line_2":null,"postcode":"RG14 2NL"},{"line_1":"86 Knight Plain","line_2":null,"postcode":"EC3P 3AY"},{"line_1":"127 Brown Ferry","line_2":null,"postcode":"PR8 4RH"},{"line_1":"167 Martin Fords","line_2":"West Elliot","postcode":"OL16 3NA"},{"line_1":"109 Walker Trace","line_2":"Lake Kelly","postcode":"BL7 8BW"},{"line_1":"150 Georgia Hill","line_2":"Jessicaport","postcode":"WV99 1TL"},{"line_1":"85 Robertson Fort","line_2":null,"postcode":"SE1 7DB"},{"line_1":"174 Helen Court","line_2":"Richardsonbury","postcode":"CM0 7HA"},{"line_1":"51 Greg Wells","line_2":null,"postcode":"WF4 3QZ"},{"line_1":"169 Walsh Center","line_2":null,"postcode":"HD9 6PH"},{"line_1":"10 Mohammed Ville","line_2":"North Jacktown","postcode":"L25 8SJ"},{"line_1":"4 Eileen Trafficway","line_2":null,"postcode":"NW6 9FA"},{"line_1":"196 Sasha Neck","line_2":"Chapmanside","postcode":"L25 8SJ"},{"line_1":"142 Holly Circle","line_2":"New Riley","postcode":"SL4 1YB"},{"line_1":"62 Sally Alley","line_2":"West Jonathan","postcode":"AB41 7HB"},{"line_1":"162 Summer Camp","line_2":null,"postcode":"OX15 4HW"},{"line_1":"184 James Ramp","line_2":"New Graham","postcode":"TN31 7BY"},{"line_1":"49 Taylor Meadow","line_2":"Dalefort","postcode":"PO17 5HZ"},{"line_1":"34 Edwards Gateway","line_2":null,"postcode":"CW11 5SY"},{"line_1":"56 Marshall Mountains","line_2":"Nikkiside","postcode":"WF10 2AL"},{"line_1":"66 Hall Parkway","line_2":null,"postcode":"PR8 4RH"},{"line_1":"29 Phillips Shores","line_2":"New Ashley","postcode":"WV99 1RG"},{"line_1":"91 Ken Views","line_2":null,"postcode":"AB31 5ZD"},{"line_1":"72 Parker Pine","line_2":"Palmerchester","postcode":"BH11 9NE"},{"line_1":"132 Hollie Ranch","line_2":"Lewiston","postcode":"MK3 7SA"},{"line_1":"27 Mary Centers","line_2":null,"postcode":"CV34 4DF"},{"line_1":"44 Harley Cliff","line_2":"North Tony","postcode":"DE65 6JG"},{"line_1":"108 Danielle Ridge","line_2":null,"postcode":"SN2 7TE"}]}'
+```
